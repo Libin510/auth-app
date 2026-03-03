@@ -1,11 +1,22 @@
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../../app/hooks";
 import { logout } from "../authSlice";
-import { Search, Plus } from "lucide-react";
+import generateTaxLogo from "../../../assets/generateTAX-logo.png";
+
+import {
+  Search,
+  Plus,
+  House,
+  Hotel,
+  BookText,
+  CreditCard,
+  User,
+  CircleQuestionMark,
+  ChevronLeft,
+} from "lucide-react";
 const ProfilePage = () => {
   const { currentUser, loginHistory } = useAppSelector((state) => state.auth);
 
-  console.log(loginHistory);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -17,12 +28,12 @@ const ProfilePage = () => {
   };
 
   const sidebarData = [
-    { name: "Home", path: "home" },
-    { name: "Entities", path: "entities" },
-    { name: "Reporting", path: "reporting" },
-    { name: "Billing", path: "billing" },
-    { name: "VAT Checker", path: "vat-checker" },
-    { name: "Users", path: "log" },
+    { name: "Home", path: "home", icon: <House /> },
+    { name: "Entities", path: "entities", icon: <Hotel /> },
+    { name: "Reporting", path: "reporting", icon: <BookText /> },
+    { name: "Billing", path: "billing", icon: <CreditCard /> },
+    { name: "VAT Checker", path: "vat-checker", icon: <BookText /> },
+    { name: "Users", path: "Users", icon: <User /> },
   ];
 
   // Extract correct child path
@@ -36,8 +47,14 @@ const ProfilePage = () => {
     <div className="min-h-screen flex bg-gray-100">
       {/* Sidebar */}
       <aside className="w-64 bg-gradient-to-b from-[#EDFAF6] to-[#E1F4FE] text-gray-800 flex flex-col">
-        <div className="px-6 py-5 text-xl font-semibold ">
-          generate<span className="font-light">.TAX</span>
+        <div className="text-center py-2">
+          <div className="inline-flex items-center gap-1 text-lg font-semibold">
+            <img
+              src={generateTaxLogo}
+              alt="Logo"
+              className="w-52 h-12 object-contain"
+            />
+          </div>
         </div>
 
         <nav className="flex-1 px-4 py-6 space-y-2">
@@ -46,14 +63,42 @@ const ProfilePage = () => {
               key={item.path}
               to={item.path}
               className={({ isActive }) =>
-                `block px-4 py-2 rounded-lg transition ${
-                  isActive ? "bg-[#41AAAF] font-semibold text-black" : "hover:bg-white"
+                `block px-4 py-2 rounded-lg transition  ${
+                  isActive
+                    ? "bg-gray-50 font-semibold text-black"
+                    : "hover:bg-white"
                 }`
               }
             >
-              {item.name}
+              <div className="flex items-center">
+                <span className="mr-2 text-gray-400 font-normal">
+                  {item.icon}
+                </span>
+                <span className="text-black"> {item.name}</span>
+              </div>
             </NavLink>
           ))}
+          <div className="my-4 border-t border-gray-200" />
+          <div>
+            <NavLink
+              key="/"
+              to="/"
+              className={({ isActive }) =>
+                `block px-4 py-1 rounded-lg transition  ${
+                  isActive
+                    ? "bg-gray-50 font-semibold text-black"
+                    : "hover:bg-white"
+                }`
+              }
+            >
+              <div className="flex items-center">
+                <span className="mr-2 text-gray-400 font-normal">
+                  <CircleQuestionMark />
+                </span>
+                <span className="text-black">Support </span>
+              </div>
+            </NavLink>
+          </div>
         </nav>
 
         <div className="p-4 border-t border-teal-600 text-sm">
@@ -65,13 +110,9 @@ const ProfilePage = () => {
       <div className="flex-1 flex flex-col">
         {/* Top Navbar */}
         <header className="h-16 bg-white shadow-sm flex items-center justify-between px-6">
-          <p className="text-lg font-semibold text-gray-700">
-            {formattedPath} / {currentUser?.name}
+          <p className="text-lg font-semibold text-gray-700 flex items-center gap-2">
+           <ChevronLeft /> <span>{formattedPath} / {currentUser?.firstName}</span>
           </p>
-
-          
-
-          
 
           <div className="flex items-center justify-between p-4">
             {/* Search Bar */}

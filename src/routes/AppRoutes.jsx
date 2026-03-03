@@ -4,7 +4,6 @@ import { useAppSelector } from "../app/hooks";
 import LoginPage from "../features/auth/pages/LoginPage";
 import RegisterPage from "../features/auth/pages/RegisterPage";
 import ProfilePage from "../features/auth/pages/ProfilePage";
-import LoginData from "../features/auth/pages/LoginData";
 import LoginHistoryTable from "../features/auth/components/LoginHistoryTable";
 
 // Example Home component (create properly in your project)
@@ -52,7 +51,7 @@ const AppRoutes = () => {
         <Route path="reporting" element={<Reporting />} />
         <Route path="billing" element={<Billing />} />
         <Route path="vat-checker" element={<VatChecker />} />
-        <Route path="log" element={<LoginHistoryTable />} />
+        <Route path="Users" element={<LoginHistoryTable />} />
       </Route>
     </Routes>
   );
